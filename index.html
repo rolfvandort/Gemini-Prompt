@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Gemini Prompt Explorer</title>
+  <link rel="stylesheet" href="index.css">
+  <script type="importmap">
+    {
+      "imports": {
+        "@google/genai": "https://esm.sh/@google/genai@^0.7.0"
+      }
+    }
+  </script>
+  <script type="module" src="index.tsx" defer></script>
+</head>
+<body>
+  <main>
+    <h1>Gemini Prompt Explorer</h1>
+    <form id="prompt-form" aria-label="Gemini prompt form">
+      <label for="prompt-input" class="sr-only">Enter your prompt</label>
+      <textarea id="prompt-input" name="prompt" placeholder="Enter your prompt here..." rows="4" required></textarea>
+      <button id="generate-button" type="submit">Generate</button>
+    </form>
+    <div id="loader" class="hidden" role="status" aria-live="polite">Generating...</div>
+    <div id="response-container" aria-live="polite"></div>
+  </main>
+</body>
+</html>
