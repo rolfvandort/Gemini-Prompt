@@ -14,26 +14,28 @@ function main() {
 
   // A helper function to display errors consistently
   function displayError(message, isHtml = false) {
-    if (isHtml) {
-        responseContainer.innerHTML = message;
-    } else {
-        responseContainer.textContent = message;
+    if (responseContainer) {
+      if (isHtml) {
+          responseContainer.innerHTML = message;
+      } else {
+          responseContainer.textContent = message;
+      }
+      responseContainer.style.color = '#d93025';
+      responseContainer.style.backgroundColor = '#fce8e6';
     }
-    responseContainer.style.color = '#d93025';
-    responseContainer.style.backgroundColor = '#fce8e6';
   }
 
   // A defensive check to ensure all required elements are found on the page.
   if (!promptForm || !promptInput || !generateButton || !responseContainer || !loader) {
     console.error('Error: One or more required DOM elements could not be found.');
-    if (responseContainer) {
-      displayError('Fout: Kan de applicatie niet initialiseren vanwege ontbrekende HTML-elementen.');
-    }
+    displayError('Fout: Kan de applicatie niet initialiseren vanwege ontbrekende HTML-elementen.');
     return;
   }
   
   // Per coding guidelines, API key must be read from process.env.API_KEY
-  const apiKey = process.env.API_KEY;
+  // Safely check for the API key to prevent a crash in browser environments where 'process' is not defined.
+  const apiKey = (typeof process !== 'undefined' && process.env && process.env.API_KEY) ? process.env.API_KEY : undefined;
+
 
   // Validate that the API key is available.
   if (!apiKey) {
